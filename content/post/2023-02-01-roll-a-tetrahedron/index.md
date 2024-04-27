@@ -1,11 +1,10 @@
 ---
 title: Roll-A-Tetrahedron
-description: "You may have seen rolling a ball, a cube, but now get ready to learn how to roll a 4-sided object"
+description: You may have seen rolling a ball, a cube, but now get ready to learn how to roll a 4-sided object
 date: 2023-02-01 12:00:00 -0700
 categories: [Tutorial]
-tags: [unity,programming,C#]     # TAG names should always be lowercase
+tags: [unity,programming,C#]
 # image:  # Can we put a WEBGL in here?
-# math: true
 ---
 
 > <center>A guide appears in front of you. Roll 1d4 for perception.</center>
@@ -147,7 +146,7 @@ I'm choosing this simpler option.
 <b>Answer</b>: It’s <b>outward</b> still. The normal for the face hasn't changed.
 </details>
 
-If you're unfamiliar with <a href="https://docs.unity3d.com/ScriptReference/Quaternion.html" target="_blank">Quaternions</a>, <s>I may cover them more in-depth in a future post</s> Edit: I covered them - <a href="https://libberator.github.io/posts/quaternions" target="_blank">check it out here</a>!
+If you're unfamiliar with <a href="https://docs.unity3d.com/ScriptReference/Quaternion.html" target="_blank">Quaternions</a>, <s>I may cover them more in-depth in a future post</s> Edit: I covered them - [check it out here]({{<ref "/post/2023-07-04-quaternions">}})!
 For now just know they represent rotations and/or orientations.
 They can interpolate more accurately than using Euler angles, always taking the shortest path, and aren't subject to gimbal lock.
 
