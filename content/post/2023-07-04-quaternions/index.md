@@ -285,7 +285,7 @@ Although a <code>w</code> value of 0 may seem insignificant, it actually represe
 
 What about when <code>w</code> is -1? The other values will be 0 just as before because normalization, but the angle is 360°.
 <details><summary>Is this last case the same as <code>Quaternion.identity</code>?</summary>
-<b>No.</b> When applied to a 3D model, it will <i>look</i> the exact same, the <code>Angle</code> difference between this and Identity will be 0°, but an equality check will return false. Remember: <a href="#a-complete-rotation-is-720-not-just-360">A "Complete" Rotation is 720°, Not Just 360°</a>. If you applied this <i>twice</i>, then it will be equal to the Identity. In a way, you could consider this to be the <a href="https://en.wikipedia.org/wiki/Root_of_unity" target="_blank">2<sup>nd</sup> root</a> of the Identity.</details>
+<b>No.</b> When applied to a 3D model, it will <i>look</i> the exact same, the <code>Angle</code> difference between this and Identity will be 0°, but an equality check will return false. Remember: A "Complete" Rotation is 720°, Not Just 360°. If you applied this <i>twice</i>, then it will be equal to the Identity. In a way, you could consider this to be the <a href="https://en.wikipedia.org/wiki/Root_of_unity" target="_blank">2<sup>nd</sup> root</a> of the Identity.</details>
 
 ### From Axis & Angle to Quaternion
 
@@ -354,7 +354,7 @@ Use a matrix table to perform <code>Q<sub>A</sub> * Q<sub>B</sub></code>
 
 Combinining like terms gives us: <code>Q<sub>B</sub>' = 0i - 0.7071j + 0k + 0.7071</code>
 
-Converting that <a href="#from-quaternion-to-axis--angle">quaternion to an Angle and Axis</a> tells us it's a 90° rotation about the negative Y-axis. Using the left-hand-rule, this orientation represents looking directly left. We did it! That wasn't too bad.
+Converting that quaternion to an Angle and Axis tells us it's a 90° rotation about the negative Y-axis. Using the left-hand-rule, this orientation represents looking directly left. We did it! That wasn't too bad.
 
 ### Q*V Multiplication
 
