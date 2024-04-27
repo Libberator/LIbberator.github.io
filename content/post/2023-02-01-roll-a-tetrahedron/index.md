@@ -1,10 +1,9 @@
 ---
-title: Roll-A-Tetrahedron
+title: Roll A Tetrahedron
 description: A guide appears in front of you. Roll 1d4 for perception.
 date: 2023-02-01 12:00:00 -0700
 categories: [Tutorial]
 tags: [unity,programming,c#]
-
 ---
 
 A member of a Discord server I moderate was curious about how to roll a tetrahedron. And that intrigued me. It's such a unique problem.
@@ -15,7 +14,7 @@ So I got to work.
 Engineering a solution to a unique problem involves trial and error,
 and I've purposefully included any non-working attempts so that you can follow along with the process.
 
-For my initial approach, I'll try modifying the Roll-A-Cube code, which uses the `transform.RotateAround` method.
+For my initial approach, I'll try modifying the Roll-A-Cube code, which uses the [`RotateAround`](https://docs.unity3d.com/ScriptReference/Transform.RotateAround.html) method.
 But before we get to that, we'll need a 3D model to work with.
 
 ## 3D Tetrahedron Model
@@ -63,7 +62,7 @@ Set it up with the mesh as a child object, then gave the child's local position 
 
 [Transform.RotateAround](https://docs.unity3d.com/ScriptReference/Transform.RotateAround.html) requires 3 pieces of information:
 - A `Vector3` **axis** to rotate around
-- A `Vector3` **point**, or an anchor, for which the axis passes through
+- A `Vector3` **point**, a world-space anchor, for which the axis passes through
 - A `float` **angle** of rotation in degrees
 
 We need to access the world positions of the vertices to get the **axis** and **point** to rotate around.
@@ -86,7 +85,7 @@ var axis = closestVertices[1].position - closestVertices[0].position;
 // we can use the Cross Product to know if this will rotate correctly
 if (Vector3.Cross(dir, axis).y < 0f) // the resulting vector should point upwards
    axis = -axis;
-// either one will work for the anchor point
+// either vertex (index 0 or 1) will work for the anchor point
 var anchor = closestVertices[0].position;
 ```
 
@@ -104,7 +103,7 @@ If you're happy with those results, you can stop reading here, [grab the complet
 But it *does* have some limitations to be aware of:
 1. Over a long distance, after many rolls, some error will accumulate and the orientation won't be perfectly flush.
 This is because the angle of rotation is an irrational number, and there will be floating point errors.
-2. It's not very easy to apply an easing function to alter the *feel* of the roll with RotateAround.
+2. It's not very easy to apply an easing function to alter the **feel** of the roll with RotateAround.
 
 With those limitations in mind, what are some other potential ways to rotate a tetrahedron?
 - Rigidbody & AddTorque - physics isn't always reliable; we want more control over how it moves. :x:
@@ -221,16 +220,16 @@ It looks promising! However... there's one small detail that I don't like...
 
 ![DOTween Results](dotween.gif)
 
-<center><b>It doesn't stay anchored.</b></center>
+***It doesn't stay anchored.***
 
 <details><summary>
-What's the problem?</summary>
+Why doesn't it stay anchored?</summary>
 We need the path of the jump to be circular, since it just goes along a 109.47..° arc of a circle.
 And the shape of the path for DOJump is likely to be parabolic (or something that *isn't* circular).
 We don't have control over the underlying code behind DOJump to adjust its path, and it cannot be fixed by just using a different Ease either.<br>
 So we can't use DOJump.
 </details>
-
+<br>
 <details><summary>
 What's my proposed solution?</summary>
 We could use some combination of DOMove, DOLocalMoveY, or some other DOTween method to create the right path, but I have a better idea in mind.
@@ -276,8 +275,8 @@ transform.position = anchor + Vector3.Slerp(startOffset, targetOffset, t);
 ```
 
 And that's it! With this approach, it's very easy to add an AnimationCurve for a custom easing function and it doesn't rely on a third-party asset.
-You can grab the [complete script here](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmover-cs).
 
 ![Slerp Coroutine Results](slerp.gif)
 
-<center>Happy rolling!</center>
+You can grab the [complete script here](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmover-cs).
+**Happy rolling!**
