@@ -101,7 +101,7 @@ However, I initially solved it for the angle between two faces, also known as th
 
 ### RotateAround Results
 
-[View RotateAround results animation (24.5MB)](https://github.com/Libberator/Libberator.github.io/blob/master/content/post/2023-02-01-roll-a-tetrahedron/rotateAround.gif)
+![RotateAround Results](rotateAround.webm)
 
 So this will work. If performance is a concern, replace Linq with something that doesn't generate garbage.
 If you're happy with those results, you can stop reading here, [grab the complete script](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmoverrotatearound-cs), and enjoy the rest of your day. :confetti_ball:
@@ -282,7 +282,7 @@ transform.position = anchor + Vector3.Slerp(startOffset, targetOffset, t);
 
 And that's it! With this approach, it's very easy to add an AnimationCurve for a custom easing function and it doesn't rely on a third-party asset.
 
-[View final Slerp results animation (17.3MB)](https://github.com/Libberator/Libberator.github.io/blob/master/content/post/2023-02-01-roll-a-tetrahedron/slerp.gif)
+![Slerp Results](slerp.webm)
 
 You can grab the [complete script here](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmover-cs).
 
