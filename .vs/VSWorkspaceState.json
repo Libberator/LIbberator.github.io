@@ -1,13 +1,17 @@
 {
   "ExpandedNodes": [
     "",
+    "\\assets\\img",
     "\\config",
     "\\config\\_default",
     "\\content",
-    "\\content\\categories",
+    "\\content\\page",
+    "\\content\\page\\archives",
+    "\\content\\page\\search",
     "\\content\\post",
+    "\\content\\post\\2023-07-04-quaternions",
     "\\static"
   ],
-  "SelectedNode": "\\content\\page",
+  "SelectedNode": "\\content\\page\\search\\index.md",
   "PreviewInSolutionExplorer": false
 }
