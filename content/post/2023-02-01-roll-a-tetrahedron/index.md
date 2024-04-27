@@ -101,7 +101,7 @@ However, I initially solved it for the angle between two faces, also known as th
 
 ### RotateAround Results
 
-![DOTween Results](dotween.gif)
+![DOTween Results](slerp.gif)
 
 So this will work. If performance is a concern, replace Linq with something that doesn't generate garbage.
 If you're happy with those results, you can stop reading here, [grab the complete script](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmoverrotatearound-cs), and enjoy the rest of your day. :confetti_ball:
