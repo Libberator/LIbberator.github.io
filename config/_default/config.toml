@@ -13,7 +13,7 @@ defaultContentLanguage = "en"
 hasCJKLanguage = false
 
 # Change it to your Disqus shortname before using
-disqusShortname = "libberator"
+disqusShortname = "libberator-github-io"
 
 enableEmoji = true
 
