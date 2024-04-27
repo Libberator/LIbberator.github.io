@@ -4,7 +4,7 @@ description: A guide appears in front of you. Roll 1d4 for perception.
 date: 2023-02-01 12:00:00 -0700
 categories: [Tutorial]
 tags: [unity,programming,c#]
-# image:
+
 ---
 
 A member of a Discord server I moderate was curious about how to roll a tetrahedron. And that intrigued me. It's such a unique problem.
