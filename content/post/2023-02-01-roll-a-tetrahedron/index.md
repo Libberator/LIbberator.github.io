@@ -66,5 +66,10 @@ Set it up with the mesh as a child object, then gave the child's local position 
 - A `float` **angle** of rotation in degrees
 
 
+We need to access the world positions of the vertices to get the **axis** and **point** to rotate around.
+If you were to access the vertex info from the MeshRenderer's Mesh data, they would be returned as *local offsets*.
+They can be converted to world coordinates with `transform.TransformPoint(vertexOffset)`.
+Alternatively, we can add 4 Transforms as children, use vertex-snapping (by holding `v`) to position them, and add them to a `List<Transform> _vertices`, which is what I'll use for this example.
+
 
 **Happy rolling!**
