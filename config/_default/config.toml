@@ -16,5 +16,3 @@ hasCJKLanguage = false
 disqusShortname = "libberator"
 
 enableEmoji = true
-
-timeout = 180
