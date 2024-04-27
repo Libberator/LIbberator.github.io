@@ -71,5 +71,29 @@ If you were to access the vertex info from the MeshRenderer's Mesh data, they wo
 They can be converted to world coordinates with `transform.TransformPoint(vertexOffset)`.
 Alternatively, we can add 4 Transforms as children, use vertex-snapping (by holding `v`) to position them, and add them to a `List<Transform> _vertices`, which is what I'll use for this example.
 
+Since we're just prototyping for a proof-of-concept at this stage, quick iteration is more important than performance, so we can do a quick-and-dirty Linq statement:
+
+```csharp
+// in case input isn't already swizzled for 3D
+var dir = new Vector3(horizontalInput, 0f, verticalInput);
+// acts as our "carrot on a stick", used for a distance check
+var target = transform.position + dir;
+// given world position vertices, ignore top-most vertex and take the closest two
+var closestVertices = _vertices.Where(v => v.position.y < 0.5f)
+      .OrderBy(v => Vector3.Distance(v.position, target))
+      .Take(2).ToArray();
+// the direction of the axis vector is important for how RotateAround works
+var axis = closestVertices[1].position - closestVertices[0].position;
+// we can use the Cross Product to know if this will rotate correctly
+if (Vector3.Cross(dir, axis).y < 0f) // the resulting vector should point upwards
+   axis = -axis;
+// either vertex (index 0 or 1) will work for the anchor point
+var anchor = closestVertices[0].position;
+```
+
+Finally, we'll need the **angle** of rotation. For a cube, it's an easy 90°. But for a tetrahedron, it's a bit harder to calculate.
+Spoiler alert: it's `109.4712206..°`, or `acos(-1/3)`. According to the [wiki page](https://en.wikipedia.org/wiki/Tetrahedron#Angles_and_distances), this is the same as the "Vertex-Center-Vertex" angle.
+However, I initially solved it for the angle between two faces, also known as the "dihedral angle", then subtracted that from 180°.
+
 
 **Happy rolling!**
