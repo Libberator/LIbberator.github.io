@@ -7,7 +7,7 @@ categories:
 tags: 
     - math
     - c#
-    - unity]
+    - unity
 image: https://hugelolcdn.com/hugewoah.com/i/7950.gif
 math: true
 ---
@@ -45,12 +45,12 @@ Also worth mentioning...
 
 ### Frame of Reference
 
-Are you looking to perform a *relative* rotation or a *global* one? Just like how a vector can represent either a global or local position, a quaternion struct can be global or local - it matters how you set them up and use them. Without any context, you can consider all quaternions to be global because you have nothing else to reference the rotation on. However, if you set up a quaternion using a relative value and apply it to the same object, that makes it a relative rotation. For instance, using <code>transform.forward</code> would make the rotation relative to the object's <code>Transform</code>, while <code>Vector3.forward</code> represents a global rotation.
+Are you looking to perform a *relative* rotation or a *global* one? Just like how a vector can represent either a global or local position, a quaternion struct can be global or local - it matters how you set them up and use them. Without any context, you can consider all quaternions to be global because you have nothing else to reference the rotation on. However, if you set up a quaternion using a relative value and apply it to the same object, that makes it a relative rotation. For instance, using `transform.forward` would make the rotation relative to the object's `Transform`, while `Vector3.forward` represents a global rotation.
 
 It's generally not a good idea to try to share relative rotations with another object, especially if they started with a different orientation.
 
-Don't confuse <code>transform.rotation</code> and <code>transform.localRotation</code>. Know the difference.<br>
-Are you calculating a global orientation relative to the global XYZ coordinates (e.g. wanting to make your character face a target), then use the global-facing <code>transform.rotation</code>. If you only care about how it rotates with respect to its parent (e.g. Animations, door swinging on a hinge), then use <code>transform.localRotation</code>.
+Don't confuse `transform.rotation` and `transform.localRotation`. Know the difference.<br>
+Are you calculating a global orientation relative to the global XYZ coordinates (e.g. wanting to make your character face a target), then use the global-facing `transform.rotation`. If you only care about how it rotates with respect to its parent (e.g. Animations, door swinging on a hinge), then use `transform.localRotation`.
 
 Bonus Tip: In Unity, toggle between "Local" and "Global" to see which axis is which on the Gizmo. Extra useful if you imported a model and the axes are set up differently.
 
@@ -58,9 +58,9 @@ Bonus Tip: In Unity, toggle between "Local" and "Global" to see which axis is wh
 
 Look around yourself at all the things that do any kind of rotating. And I want you to think in terms of **Axis** and **Angles**. That's a singular axis: a vector in \*any\* direction of your choice. This axis will be what gets rotated *around* by a certain amount of angular units. I'll be using degrees, but radians are valid too.
 
-Leaning back in your chair? Nah. You're rotating the chair negative degrees about its <code>right</code> axis (or positive degrees about the <code>left</code> axis).
+Leaning back in your chair? Nah. You're rotating the chair negative degrees about its `right` axis (or positive degrees about the `left` axis).
 
-Looking down and to your left? Nah. Your neck is oriented some positive degrees around <code>Vector(1, -1, 0)</code>, assuming Z is your forward. Might be tough to wrap your head around.
+Looking down and to your left? Nah. Your neck is oriented some positive degrees around `Vector(1, -1, 0)`, assuming Z is your forward. Might be tough to wrap your head around.
 
 Grab a pineapple. :pineapple: Grab a pen. :pen: Make a Pineapple Pen. :pineapple: :pen: That pen is the axis, at whatever arbitrary vector you stuck it in at. Spin it to see how it rotates.
 
@@ -76,7 +76,7 @@ It's a combination of 3 numbers representing the amount of angles rotated about 
 
 &ensp;<b>#1. You can't always trust the numbers you see in the Inspector</b>
 
-Those numbers next to "Rotation" aren't even its <code>transform.rotation</code>, but rather the Transform's **local orientation** (i.e. relative to its parent). The Inspector lies to you, so don't be fooled.
+Those numbers next to "Rotation" aren't even its `transform.rotation`, but rather the Transform's **local orientation** (i.e. relative to its parent). The Inspector lies to you, so don't be fooled.
 
 Despite displaying as Euler angles, they're actually a Quaternion behind the scenes. If you rotate around multiple axes, like for some 3D games, don't use its Euler angles as a reference to base your logic off of. This is because the internal conversion that Unity does between Quaternions and Euler angles can have some of the angles "jumping around", giving you **unpredictable** and **unreliable** behavior.
 
@@ -125,17 +125,17 @@ Having to add extra code to handle the transition between 0° and 360° (or -180
 
 ### Unit Quaternions (Normalized)
 
-Unit quaternions have a \|\|magnitude\|\| of 1. This means if you square all four components and add them together, it should equal 1. Techincally should square-root it too, but $\sqrt{1} = 1$, so I'm cutting corners. Within Unity, quaternions get normalized by default. There does exist a <code>Normalize</code> method in case you're manually entering quaternion values and it, for some reason, doesn't auto-normalize (it can happen). But usually you shouldn't have to worry about that. Non-Unit Quaternions are more complicated things that I'm just not going to get into.
+Unit quaternions have a \|\|magnitude\|\| of 1. This means if you square all four components and add them together, it should equal 1. Techincally should square-root it too, but $\sqrt{1} = 1$, so I'm cutting corners. Within Unity, quaternions get normalized by default. There does exist a `Normalize` method in case you're manually entering quaternion values and it, for some reason, doesn't auto-normalize (it can happen). But usually you shouldn't have to worry about that. Non-Unit Quaternions are more complicated things that I'm just not going to get into.
 
 ### Identity ("1")
 
-Identity just means "no change". It's like multiplying regular numbers by <code>1</code>, or adding <code>0</code>. When you set an object's orientation to <code>Quaternion.identity</code>, it goes to the default orientation, which represents an absence of any rotations applied (i.e. 0° on all Euler Angles).
+Identity just means "no change". It's like multiplying regular numbers by `1`, or adding `0`. When you set an object's orientation to `Quaternion.identity`, it goes to the default orientation, which represents an absence of any rotations applied (i.e. 0° on all Euler Angles).
 
 <code>Q<sub>I</sub> = new Quaternion(0, 0, 0, 1);</code>
 
 ### Invertability (Ctrl + Z)
 
-The Inverse of a quaternion <code>Q</code> is denoted as <code>Q<sup>-1</sup></code>. Any rotation that is applied can be undone. A quaternion will cancel out with its Inverse, resulting in the Identity quaternion. Thinking in terms of *Axis and Angles*, you can view it as negating the axis to point in the opposite direction, while keeping the same rotational angle. Another way to think about it is just negating the angle to rotate in the opposite direction. Mathematically speaking:
+The Inverse of a quaternion `Q` is denoted as <code>Q<sup>-1</sup></code>. Any rotation that is applied can be undone. A quaternion will cancel out with its Inverse, resulting in the Identity quaternion. Thinking in terms of *Axis and Angles*, you can view it as negating the axis to point in the opposite direction, while keeping the same rotational angle. Another way to think about it is just negating the angle to rotate in the opposite direction. Mathematically speaking:
 
 <code>Q<sup>-1</sup> = new Quaternion(-Q.x, -Q.y, -Q.z, Q.w);</code>
 
@@ -149,7 +149,7 @@ Given quaternions <code>Q<sub>1</sub></code>, <code>Q<sub>2</sub></code>, and <c
 
 <code>(Q<sub>1</sub> * Q<sub>2</sub>) * Q<sub>3</sub> = Q<sub>1</sub> * (Q<sub>2</sub> * Q<sub>3</sub>)</code>
 
-Same applies when multiplying with a vector <code>V</code>:
+Same applies when multiplying with a vector `V`:
 
 <code>(Q<sub>1</sub> * Q<sub>2</sub>) * V = Q<sub>1</sub> * (Q<sub>2</sub> * V)</code>
 
@@ -175,20 +175,20 @@ This is how it works in real life, too: Electrons and other matter particles in 
 
 ### Quaternion Creation
 
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Euler.html" target="_blank">Euler</a>: Rotation that rotates <code>z°</code> around the <code>z</code> axis, <code>x°</code> around the <code>x</code> axis, and <code>y°</code> around the <code>y</code> axis. **In that order**
-    - Can access these values with <code>transform.eulerAngles</code> - not to be confused with <code>transform.rotation</code>
-    - If you're typically setting two of the three values to <code>0°</code>, you can accomplish the same thing with AngleAxis instead
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.AngleAxis.html" target="_blank">AngleAxis</a>: Are you thinking in terms of axis and angles yet?
+- [Euler](https://docs.unity3d.com/ScriptReference/Quaternion.Euler.html): Rotation that rotates `z°` around the `z` axis, `x°` around the `x` axis, and `y°` around the `y` axis. **In that order**
+    - Can access these values with `transform.eulerAngles` - not to be confused with `transform.rotation`
+    - If you're typically setting two of the three values to `0°`, you can accomplish the same thing with AngleAxis instead
+- [AngleAxis](https://docs.unity3d.com/ScriptReference/Quaternion.AngleAxis.html): Are you thinking in terms of axis and angles yet?
     - You can create most of the same quaternions you'd probably make with Euler with this instead
     - This method is ***FASTER***, too! With a basic test of 100,000 calls every frame, AngleAxis outperformed Euler with 30-50% more FPS. Ditch using Euler; it's a more expensive conversion
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.LookRotation.html" target="_blank">LookRotation</a>: Get an orientation by providing a <code>Vector3 forward</code> and a <code>Vector3 upwards</code> as a "hint" to determine Roll. Default hint is <code>Vector3.up</code>
-    - Usually you'll get a forward direction by doing <code>target.position - transform.position</code>
+- [LookRotation](https://docs.unity3d.com/ScriptReference/Quaternion.LookRotation.html): Get an orientation by providing a `Vector3 forward` and a `Vector3 upwards` as a "hint" to determine Roll. Default hint is `Vector3.up`
+    - Usually you'll get a forward direction by doing `target.position - transform.position`
     - Don't have these two vectors align. If you're looking straight up or down, provide a different upwards hint
     - <details><summary>Example Analogy</summary>Imagine you are an astronaut in space and were told to fixate your eyes in a certain direction. Let's assume you could accomplish that part. Great. But there wasn't a strict instruction on how to orient the rest of your body, so you're spinning around 360° while your eyes stay focused. But with an "upwards" reference direction, that's enough to narrow down your possible orientations to just 1 and stop your spinning. Your personal "up" might not be exactly parallel with the "upwards" hint, but it's enough info to tether you to something for some stability</details>
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.FromToRotation.html" target="_blank">FromToRotation</a>: This gets the difference in orientation between two direction vectors; the *rotation* that you would need to apply to <code>fromDirection</code> which will result in the <code>toDirection</code>.
+- [FromToRotation](https://docs.unity3d.com/ScriptReference/Quaternion.FromToRotation.html): This gets the difference in orientation between two direction vectors; the *rotation* that you would need to apply to `fromDirection` which will result in the `toDirection`.
     - In other words, this solves for <code>Q<sub>FromTo</sub></code> in the equation <code>Q<sub>FromTo</sub> * V<sub>From</sub> = V<sub>To</sub></code>
     - This method was vital for my Roll-a-Tetrahedron solution
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html" target="_blank">Inverse</a>: Gets the ~~evil twin~~ opposite rotation of a quaternion.
+- [Inverse](https://docs.unity3d.com/ScriptReference/Quaternion.Inverse.html): Gets the ~~evil twin~~ opposite rotation of a quaternion.
     - Example: if you wanted to get <code>Q<sub>ToFrom</sub></code>, you *could* call FromToRotation again swapping parameters or you could just do <code>Q<sub>ToFrom</sub> = Quaternion.Inverse(Q<sub>FromTo</sub>);</code>
 
 ### Quaternion Interpolation
@@ -196,9 +196,9 @@ This is how it works in real life, too: Electrons and other matter particles in 
 When interpolating between a start and end orientation, Quaternions take the shortest path (this means that angles more than 180° apart aren't a thing). Try to avoid having your start and end 180° apart (pointing in opposite directions), otherwise the path between them will not be well-defined.
 
 #### Time- or Percent-Based Methods
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Lerp.html" target="_blank">Lerp</a>: Linear interpolation between [0-1]
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Slerp.html" target="_blank">Slerp</a>: Spherical interpolation between [0-1]
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.LerpUnclamped.html" target="_blank">LerpUnclamped</a> & <a href="https://docs.unity3d.com/ScriptReference/Quaternion.SlerpUnclamped.html" target="_blank">SlerpUnclamped</a>: can also extrapolate beyond 0 and 1
+- [Lerp](https://docs.unity3d.com/ScriptReference/Quaternion.Lerp.html): Linear interpolation between [0-1]
+- [Slerp](https://docs.unity3d.com/ScriptReference/Quaternion.Slerp.html): Spherical interpolation between [0-1]
+- [LerpUnclamped](https://docs.unity3d.com/ScriptReference/Quaternion.LerpUnclamped.html) & [SlerpUnclamped](https://docs.unity3d.com/ScriptReference/Quaternion.SlerpUnclamped.html): can also extrapolate beyond 0 and 1
 
 <details><summary>What's the difference between Lerp and Slerp? Aren't they both spherical since it involves things that rotate?</summary>
 Yeah, not much difference tbh. Unlike the differences between Vector3's Lerp and Slerp, these all follow the same path but just have an ever-so-slightly different easing/timing along the path. The docs say that "[Lerp] is faster than Slerp but looks worse if the rotations are far apart." But it's hard to see a difference</details>
@@ -208,43 +208,43 @@ Yeah, not much difference tbh. Unlike the differences between Vector3's Lerp and
 </details>
 
 #### Speed-Based Method
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.RotateTowards.html" target="_blank">RotateTowards</a>: Get an orientation that is the <code>from</code> quaternion rotated by a <code>float maxDegreesDelta</code> angle towards the <code>to</code> quaternion without overshooting
-    - If you use a <code>float rotationSpeed</code> multiplied by <code>Time.deltaTime</code>, it will rotate at that **rate** in degrees per second, no matter the difference between <code>from</code> and <code>to</code>
+- [RotateTowards](https://docs.unity3d.com/ScriptReference/Quaternion.RotateTowards.html): Get an orientation that is the `from` quaternion rotated by a `float maxDegreesDelta` angle towards the `to` quaternion without overshooting
+    - If you use a `float rotationSpeed` multiplied by `Time.deltaTime`, it will rotate at that **rate** in degrees per second, no matter the difference between `from` and `to`
 
 ### Transform Options for Rotating
 
 Quaternions by theirself are just a math construct - they have no idea what a Transform is. With the Transform class, you have access to more contextual utility, like methods that know the difference between global and local.
 
-- <a href="https://docs.unity3d.com/ScriptReference/Transform.Rotate.html" target="_blank">Transform.Rotate</a>: This method has many overlaod options
+- [Transform.Rotate](https://docs.unity3d.com/ScriptReference/Transform.Rotate.html): This method has many overlaod options
     - Primarily relies on Euler Angles or an Axis and Angle combo
-    - Can specify whether it's a global (<code>Space.World</code>) or local (<code>Space.Self</code>) rotation (default)
-- <a href="https://docs.unity3d.com/ScriptReference/Transform.RotateAround.html" target="_blank">Transform.RotateAround</a>: Like a satellite orbiting around a planet or like a hinge joint, this method **also affects the position**
-    - Uses an Axis and Angle and a world position <code>Vector3 point</code> as a pivot or anchor that the axis passes through
-- <a href="https://docs.unity3d.com/ScriptReference/Transform.LookAt.html" target="_blank">Transform.LookAt</a>: Immediately snap a transform's forward to a <code>Transform target</code> or <code>Vector3 worldPosition</code>
-    - Similar to <code>Quaternion.LookRotation</code>, this also can take a <code>Vector3 worldUp</code> hint
-    - For 2D games, since this defaults to using the transform's forward, you'll either want to adjust the <code>worldUp</code> to have it orient towards a target (leaving the <code>target</code> vector directly forward of your character) OR change how your sprite is parented/oriented
-- Setting a <code>Vector3 direction</code> directly to <code>transform.<a href="https://docs.unity3d.com/ScriptReference/Transform-forward.html" target="_blank">forward</a>/<a href="https://docs.unity3d.com/ScriptReference/Transform-up.html" target="_blank">up</a>/<a href="https://docs.unity3d.com/ScriptReference/Transform-right.html" target="_blank">right</a></code>
+    - Can specify whether it's a global (`Space.World`) or local (`Space.Self`) rotation (default)
+- [Transform.RotateAround](https://docs.unity3d.com/ScriptReference/Transform.RotateAround.html): Like a satellite orbiting around a planet or like a hinge joint, this method **also affects the position**
+    - Uses an Axis and Angle and a world position `Vector3 point` as a pivot or anchor that the axis passes through
+- [Transform.LookAt](https://docs.unity3d.com/ScriptReference/Transform.LookAt.html): Immediately snap a transform's forward to a `Transform target` or `Vector3 worldPosition`
+    - Similar to `Quaternion.LookRotation`, this also can take a `Vector3 worldUp` hint
+    - For 2D games, since this defaults to using the transform's forward, you'll either want to adjust the `worldUp` to have it orient towards a target (leaving the `target` vector directly forward of your character) OR change how your sprite is parented/oriented
+- Applying a `Vector3 direction` directly to `transform.`[`forward`](https://docs.unity3d.com/ScriptReference/Transform-forward.html)/[`up`](https://docs.unity3d.com/ScriptReference/Transform-up.html)/[`right`](https://docs.unity3d.com/ScriptReference/Transform-right.html)
     - This approach doesn't give control over where the other axes choose to align, so use cautiously or only in very simple cases
-- Setting a <code>Quaternion rotation</code> directly to <a href="https://docs.unity3d.com/ScriptReference/Transform-rotation.html" target="_blank"><code>transform.rotation</code></a> or <a href="https://docs.unity3d.com/ScriptReference/Transform-localRotation.html" target="_blank"><code>transform.localRotation</code></a>
-    - Tip: If you have <code>someRotation</code> you want to *apply* to your transform's orientation, **don't do** <code>transform.rotation *= someRotation;</code>! Instead, do <code>transform.rotation = someRotation * transform.rotation;</code>. Order matters
+- Applying a `Quaternion rotation` directly to [`transform.rotation`](https://docs.unity3d.com/ScriptReference/Transform-rotation.html) or [`transform.localRotation`](https://docs.unity3d.com/ScriptReference/Transform-localRotation.html)
+    - Tip: If you have `someRotation` you want to *apply* to your transform's orientation, **don't do** `transform.rotation *= someRotation;`! Instead, do `transform.rotation = someRotation * transform.rotation;`. Order matters
 
 ### Quaternion Methods You'll Never or Rarely Use
 
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Normalize.html" target="_blank">Normalize</a>: Set the magnitude of a quaternion to 1, keeping its orientation. Unity does this by default in most cases
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Dot.html" target="_blank">Dot</a>: Returns the Dot Product between two quaternions, a value between -1 and +1 as a measure of "alignment". Easier to use Vectors
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.Angle.html" target="_blank">Angle</a>: Returns the angle in degrees between two quaternions. Easier to use Vectors
-- <a href="https://docs.unity3d.com/ScriptReference/Quaternion.ToAngleAxis.html" target="_blank">ToAngleAxis</a>: Gets an Angle and Axis from a quaternion. Usually you're using that kind of info to create quaternions, not the other way around
-    - Fun fact: the axis that gets returned from <code>Quaternion.identity</code> is <code>Vector3.right</code>, or (1, 0, 0)
-- The Quaternion <a href="https://docs.unity3d.com/ScriptReference/Quaternion-ctor.html" target="_blank">Constructor</a>, taking in x,y,z, and w: If you're using this, it's either for the purpose of deserialization, optimizations (e.g. swizzling via extension methods), you understand quaternions better than most, or you copied code you found somewhere
+- [Normalize](https://docs.unity3d.com/ScriptReference/Quaternion.Normalize.html): Set the magnitude of a quaternion to 1, keeping its orientation. Unity does this by default in most cases
+- [Dot](https://docs.unity3d.com/ScriptReference/Quaternion.Dot.html): Returns the Dot Product between two quaternions, a value between -1 and +1 as a measure of "alignment". Easier to use Vectors
+- [Angle](https://docs.unity3d.com/ScriptReference/Quaternion.Angle.html): Returns the angle in degrees between two quaternions. Easier to use Vectors
+- [ToAngleAxis](https://docs.unity3d.com/ScriptReference/Quaternion.ToAngleAxis.html): Gets an Angle and Axis from a quaternion. Usually you're using that kind of info to create quaternions, not the other way around
+    - Fun fact: the axis that gets returned from `Quaternion.identity` is `Vector3.right`, or (1, 0, 0)
+- The [Quaternion Constructor](https://docs.unity3d.com/ScriptReference/Quaternion-ctor.html), taking in x,y,z, and w: If you're using this, it's either for the purpose of deserialization, optimizations (e.g. swizzling via extension methods), you understand quaternions better than most, or you copied code you found somewhere
 
 ## Math
 
-Quaternions consist of four numbers: <code>x</code>, <code>y</code>, <code>z</code>, and <code>w</code>\*, which are all values between -1 and +1. But that still leaves us with questions:
+Quaternions consist of four numbers: `x`, `y`, `z`, and `w`\*, which are all values between -1 and +1. But that still leaves us with questions:
 - Should we try to visualize it geometrically?
 - What do those numbers mean?
 - How does multiplying with them work?
 
-\**Note: I'll be placing <code>w</code> at the end to match with Unity; other sources may put the <code>w</code> at the beginning.*
+\**Note: I'll be placing `w` at the end to match with Unity; other sources may put the `w` at the beginning.*
 
 ### Geometric Interpretation
 
@@ -252,48 +252,48 @@ It can be hard for people to visualize a 4-dimensional struct. Imagine a coordin
 
 That's not very helpful or intuitive.
 
-Instead, it's easier to imagine a quaternion in two parts: a Vector3 (using <code>x</code>, <code>y</code>, and <code>z</code>) with a certain amount of *spin* or *twist* about itself (the <code>w</code> component). This goes back to thinking in terms of Axis and Angle. The trickier part comes when trying to interpret how the <code>w</code> value relates to an actual angular value.
+Instead, it's easier to imagine a quaternion in two parts: a Vector3 (using `x`, `y`, and `z`) with a certain amount of *spin* or *twist* about itself (the `w` component). This goes back to thinking in terms of Axis and Angle. The trickier part comes when trying to interpret how the `w` value relates to an actual angular value.
 
 ### Imaginary Numbers
 
 The magical rotational properties stem from the usage of imaginary numbers: $i = \sqrt{-1}$
 
-Brief refresher on the Complex Plane, $\mathbb{C}$: it's a 2D grid, where the horizontal axis consists of real numbers, $\mathbb{R}$, and the vertical axis consists of imaginary numbers, $\mathbb{I}$. A point in the grid is called a complex number, written as <code>a + bi</code>. Any time you multiply a complex number by <code>i</code>, it's like rotating that point 90° counter-clockwise about the origin. If you do that 4 times, you're back to where you started: <code>1</code> → <code>i</code> → <code>-1</code> → <code>-i</code> → <code>1</code>
+Brief refresher on the Complex Plane, $\mathbb{C}$: it's a 2D grid, where the horizontal axis consists of real numbers, $\mathbb{R}$, and the vertical axis consists of imaginary numbers, $\mathbb{I}$. A point in the grid is called a complex number, written as `a + bi`. Any time you multiply a complex number by `i`, it's like rotating that point 90° counter-clockwise about the origin. If you do that 4 times, you're back to where you started: `1` → `i` → `-1` → `-i` → `1`
 
-Let's extend the Complex Plane by adding two more imaginary dimensions: <code>j</code> and <code>k</code>. Both <code>j</code> and <code>k</code> also have the rotational superpowers that come from $\sqrt{-1}$. All four axes (<code>1</code>, <code>i</code>, <code>j</code>, and <code>k</code>) are orthogonal to one another, forming a "basis" in our 4D space. We can represent a quaternion in the form:
+Let's extend the Complex Plane by adding two more imaginary dimensions: `j` and `k`. Both `j` and `k` also have the rotational superpowers that come from $\sqrt{-1}$. All four axes (`1`, `i`, `j`, and `k`) are orthogonal to one another, forming a "basis" in our 4D space. We can represent a quaternion in the form:
 
 $$ x\mathbb{i} + y\mathbb{j} + z\mathbb{k} + w $$
 
-It's worth pointing out that the *real axis* where <code>w</code> occupies has a unit value of <code>1</code>. It's just omitted in the formula for convenience: $... + w*1$. This will be useful info later when we're [multiplying quaternions](#qq-multiplication).
+It's worth pointing out that the *real axis* where `w` occupies has a unit value of `1`. It's just omitted in the formula for convenience: $... + w*1$. This will be useful info later when we're [multiplying quaternions](#qq-multiplication).
 
 To make sense of how multiplication with these new axes works, we need to add a few special rules. And remember: the order of multiplication **matters**. The value on the left is being *applied* to the one on the right:
-- <code>i * j = k</code>,&ensp; <code>j * i = -k</code>
-- <code>j * k = i</code>,&ensp; <code>k * j = -i</code>
-- <code>k * i = j</code>,&ensp; <code>i * k = -j</code><br>
-<a href="https://upload.wikimedia.org/wikipedia/commons/0/04/Cayley_Q8_quaternion_multiplication_graph.svg" target="_blank">Click here for an interactive visualization of these rules</a>
+- `i * j = k`,&ensp; `j * i = -k`
+- `j * k = i`,&ensp; `k * j = -i`
+- `k * i = j`,&ensp; `i * k = -j`<br>
+[Click here for an interactive visualization of these rules](https://upload.wikimedia.org/wikipedia/commons/0/04/Cayley_Q8_quaternion_multiplication_graph.svg)
 
 Now we can make sense of what Sir Hamilton etched into stone (see quote at top of this article):
 - <code>i<sup>2</sup> = j<sup>2</sup> = k<sup>2</sup> = ijk = -1</code>
 
-For that <code>ijk</code> part, whether you do the multiplication like <code>(i * j) * k</code> or <code>i * (j * k)</code>, you can use the rules to replace what's in the parentheses and you'll get <code>(k) * k = -1</code> or <code>i * (i) = -1</code>, respectively. Yay associativity!
+For that `ijk` part, whether you do the multiplication like `(i * j) * k` or `i * (j * k)`, you can use the rules to replace what's in the parentheses and you'll get `(k) * k = -1` or `i * (i) = -1`, respectively. Yay associativity!
 
 ### The Real Part: w
 
-Since <code>w</code> is a value between -1 and +1, how can we map that from/to an angle of rotation?
+Since `w` is a value between -1 and +1, how can we map that from/to an angle of rotation?
 
 Answer: $ w = \cos{(\theta / 2)} $, and $ \theta = 2 * \arccos{w} $
 
-When <code>w</code> is 1, <code>x</code>,<code>y</code>, and <code>z</code> will be 0 due to normalization constraints. This is the same as <code>Quaternion.identity</code>, where the angle of rotation is 0°.
+When `w` is 1, `x`, `y`, and `z` will be 0 due to normalization constraints. This is the same as `Quaternion.identity`, where the angle of rotation is 0°.
 
-Although a <code>w</code> value of 0 may seem insignificant, it actually represents the most extreme rotation: 180°.
+Although a `w` value of 0 may seem insignificant, it actually represents the **most extreme rotation**: 180°.
 
-What about when <code>w</code> is -1? The other values will be 0 just as before because normalization, but the angle is 360°.
+What about when `w` is -1? The other values will be forced to be 0 just as before because normalization, but the angle is actually 360°.
 <details><summary>Is this last case the same as <code>Quaternion.identity</code>?</summary>
-<b>No.</b> When applied to a 3D model, it will <i>look</i> the exact same, the <code>Angle</code> difference between this and Identity will be 0°, but an equality check will return false. Remember: A "Complete" Rotation is 720°, Not Just 360°. If you applied this <i>twice</i>, then it will be equal to the Identity. In a way, you could consider this to be the <a href="https://en.wikipedia.org/wiki/Root_of_unity" target="_blank">2<sup>nd</sup> root</a> of the Identity.</details>
+<b>No.</b> When applied to a 3D model, it will <i>look</i> the exact same, the <code>Angle</code> difference between this and Identity will be 0°, but an equality check will return false. Remember: <a href="#a-complete-rotation-is-720-not-just-360">A "Complete" Rotation is 720°, Not Just 360°</a>. If you applied this <i>twice</i>, then it will be equal to the Identity. In a way, you could consider this to be the <a href="https://en.wikipedia.org/wiki/Root_of_unity" target="_blank">2<sup>nd</sup> root</a> of the Identity.</details>
 
 ### From Axis & Angle to Quaternion
 
-This is to demonstrate how to do <code>var q = Quaternion.AngleAxis(angle, axis);</code> if you didn't have access to that Unity method
+This is to demonstrate how to do `var q = Quaternion.AngleAxis(angle, axis);` if you didn't have access to that Unity method
 
 ```csharp
 // 1. First define your axis and your angle
@@ -331,7 +331,7 @@ var axis = new Vector3(q.x, q.y, q.z).normalized;
 
 If you know the basics of multiplication, addition, and subtraction, you can perform quaternion multiplication!
 
-Since we know the form of a quaternion, and we're only plugging in the values for <code>x</code>, <code>y</code>, <code>z</code>, and <code>w</code>, we can set up a multiplication table for the axes and use the special rules from earlier to simplify the math:
+Since we know the form of a quaternion, and we're only plugging in the values for `x`, `y`, `z`, and `w`, we can set up a multiplication table for the axes and use the special rules from earlier to simplify the math:
 
 |     | `i` | `j` | `k` | `1` |
 | --- | :-: | :-: | :-: | :-: |
@@ -345,8 +345,8 @@ For <code>Q<sub>A</sub> * Q<sub>B</sub></code>, <code>Q<sub>A</sub></code> would
 <b>Step-by-Step Example</b>
 
 In this example, imagine we're looking at a computer monitor slightly to our right at 30° and want to turn our neck left by 120°.<br>
-<code>Q<sub>A</sub> = 0i - 0.866j + 0k + 0.5</code> ← rotation same as <code>Quaternion.AngleAxis(-120f, Vector3.up)</code><br>
-<code>Q<sub>B</sub> = 0i + 0.2588j + 0k + 0.9659</code> ← orientation same as <code>Quaternion.AngleAxis(30, Vector3.up)</code><br>
+<code>Q<sub>A</sub> = 0i - 0.866j + 0k + 0.5</code> ← rotation same as `Quaternion.AngleAxis(-120f, Vector3.up)`<br>
+<code>Q<sub>B</sub> = 0i + 0.2588j + 0k + 0.9659</code> ← orientation same as `Quaternion.AngleAxis(30, Vector3.up)`<br>
 Use a matrix table to perform <code>Q<sub>A</sub> * Q<sub>B</sub></code>
 
 |     | `0 i` | `0.2588 j` | `0 k` | `0.9659` |
@@ -358,27 +358,27 @@ Use a matrix table to perform <code>Q<sub>A</sub> * Q<sub>B</sub></code>
 
 Combinining like terms gives us: <code>Q<sub>B</sub>' = 0i - 0.7071j + 0k + 0.7071</code>
 
-Converting that quaternion to an Angle and Axis tells us it's a 90° rotation about the negative Y-axis. Using the left-hand-rule, this orientation represents looking directly left. We did it! That wasn't too bad.
+Converting that [quaternion to an Angle and Axis](#from-quaternion-to-axis--angle) tells us it's a 90° rotation about the negative Y-axis. Using the left-hand-rule, this orientation represents looking directly left. We did it! That wasn't too bad.
 
 ### Q*V Multiplication
 
-I know I wrote <code>Q * V</code>, but *actually* we have to do <code>Q * V * Q<sup>-1</sup></code>, *sandwiching* the vector between the quaterion and its inverse\*. Yummy. This is to ensure the <code>w</code> value gets properly canceled out so that we're left with a Vector in the end and not actually a quaternion.
+I know I wrote `Q * V`, but *actually* we have to do <code>Q * V * Q<sup>-1</sup></code>, *sandwiching* the vector between the quaterion and its inverse\*. Yummy. This is to ensure the `w` value gets properly canceled out so that we're left with a Vector in the end and not actually a quaternion.
 
-\*<i>Note: In Unity, you can't perform <code>V * Q</code> in that order. This math section is how to solve it **on paper**, and it's more-or-less what happens behind the scenes when you do a <code>Q * V</code> operation in Unity.</i>
+\*<i>Note: In Unity, you can't perform `V * Q` in that order. This math section is how to solve it **on paper**, and it's more-or-less what happens behind the scenes when you do a `Q * V` operation in Unity.</i>
 
-Not the best analogy, but here's one way to think about it the sandwiching: Imagine wringing out a wet towel. Both hands start facing the same direction as each other, palms down gripping the towel. One hand twists the towel in one direction 180° (<code>Q</code>). The other hand twists it 180° in the opposite direction (<code>Q<sup>-1</sup></code>). Both hands end up still facing the same way as each other, but the towel (<code>V</code>) ends up twisted (rotated) and slightly less soaked.
+Not the best analogy, but here's one way to think about it the sandwiching: Imagine wringing out a wet towel. Both hands start facing the same direction as each other, palms down gripping the towel. One hand twists the towel in one direction 180° (`Q`). The other hand twists it 180° in the opposite direction (<code>Q<sup>-1</sup></code>). Both hands end up still facing the same way as each other, but the towel (`V`) ends up twisted (rotated) and slightly less soaked.
 
-So how do we multiply something that lives in 3D space by something that's 4D? They live in very different spaces - real world vs complex imaginary land. <b>Here's the trick</b>:
+So how do we multiply something that lives in 3D space by something that's 4D? They live in very different spaces - real world vs complex imaginary land. **Here's the trick**:
 
-1. We *pretend* our vector is actually 4D like a quaternion, setting the <code>w</code> value to 0. We don't do any normalzing to it. We'll call it <code>V<sub>4D</sub></code>
+1. We *pretend* our vector is actually 4D like a quaternion, setting the `w` value to 0. We don't do any normalzing to it. We'll call it <code>V<sub>4D</sub></code>
 2. We do the same quaternion multiplication as before but just **twice**. It doesn't matter which pair you multiply first:  <code>(Q * V<sub>4D</sub>) * Q<sup>-1</sup></code> = <code>Q * (V<sub>4D</sub> * Q<sup>-1</sup>)</code>
-3. After all the multiplication math dust settles, if we did it right, its <code>w</code> will end up as 0 and so we drop that real axis. We also drop the imaginary labels <code>i</code>, <code>j</code>, and <code>k</code> from it to convert it back to a regular Vector, now rotated
+3. After all the multiplication math dust settles, if we did it right, its `w` will end up as 0 and so we drop that real axis. We also drop the imaginary labels `i`, `j`, and `k` from it to convert it back to a regular Vector, now rotated
 
-<b>Longer Step-by-Step Example</b>
+**Longer Step-by-Step Example**
 
-In this example, let's start with a <code>(7, 7, 0)</code> vector and try to rotate that counter-clockwise by 45°. Relatively simple 2D example that you could solve using the <a href="https://en.wikipedia.org/wiki/Rotation_matrix" target="_blank">Rotation Matrix</a>, but let's demonstrate what it looks like with quaternions<br>
-<code>V = 7x + 7y + 0z</code><br>
-<code>Q = 0i + 0j + 0.38268k + 0.92388</code> ← rotation same as <code>Quaternion.AngleAxis(45f, Vector3.forward)</code><br>
+In this example, let's start with a `(7, 7, 0)` vector and try to rotate that counter-clockwise by 45°. Relatively simple 2D example that you could solve using the [Rotation Matrix](https://en.wikipedia.org/wiki/Rotation_matrix), but let's demonstrate what it looks like with quaternions<br>
+`V = 7x + 7y + 0z`<br>
+`Q = 0i + 0j + 0.38268k + 0.92388` ← rotation same as `Quaternion.AngleAxis(45f, Vector3.forward)`<br>
 <code>Q<sup>-1</sup> = 0i + 0j - 0.38268k + 0.92388</code> ← Inverse to sandwich with<br>
 Let's pretend that V is a quaternion. I'm choosing to perform <code>V<sub>4D</sub> * Q<sup>-1</sup></code> first
 
@@ -402,11 +402,11 @@ Half-way there. Now we multiply <code>Q * V<sub>4D</sub>'</code>
 
 Simplifying one last time gives us <code>V<sub>4D</sub>' = 0i + 9.9j + 0k + 0</code>
 
-Converting the final result back into 3D world space gives us a vector of <code>(0, 9.9, 0)</code>. Awesome!
+Converting the final result back into 3D world space gives us a vector of `(0, 9.9, 0)`. Awesome!
 
 ## Conclusion
 
-Quaternions are pretty nifty :thumbsup:
+Visualizing the rotations and getting a solid point of reference (local, global, relative to something else?) can be daunting. But now you know the essentials and to think about them in terms of and **axis** and an **angle**, so go out there and practice with them! Think about what sort of scenarios would be suitable for different methods. Don't multiply them in the wrong order. Level up beyond the pedestrian Euler angles. Being able to use Quaternions is an invaluable tool to have as a gamedev. And they're pretty nifty too :thumbsup:
 
 ## Bonus Material and Resources
 
@@ -439,18 +439,17 @@ With this approach, if <code>from</code> and <code>to</code> are identical or ex
 
 ### Videos
 
-- <a href="https://www.youtube.com/watch?v=d4EgbgTm0Bg" target="_blank"><i>Visualizing quaternions</i></a> (31:50) - 3Blue1Brown, part 1
-- <a href="https://www.youtube.com/watch?v=zjMuIxRvygQ" target="_blank"><i>Quaternions and 3d rotation</i></a> (5:58) - 3Blue1Brown, part 2
-- <a href="https://www.youtube.com/watch?v=jTgdKoQv738" target="_blank"><i>How quaternions produce 3D rotation</i></a> (11:34) - PenguinMaths
-- <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><i>The Quaternion Video You've All Been Waiting For</i></a> (3:32) - Tarodev
+- [*Visualizing quaternions*](https://www.youtube.com/watch?v=d4EgbgTm0Bg) (31:50) - 3Blue1Brown, part 1
+- [*Quaternions and 3d rotation*](https://www.youtube.com/watch?v=zjMuIxRvygQ) (5:58) - 3Blue1Brown, part 2
+- [*How quaternions produce 3D rotation*](https://www.youtube.com/watch?v=jTgdKoQv738) (11:34) - PenguinMaths
 
 ### Reading
 
-- <a href="https://penguinmaths.blogspot.com/2019/06/how-quaternions-produce-3d-rotation.html" target="_blank"><i>How Quaternions Produce 3D Rotations</i></a> - PenguinMaths
-- <a href="https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html" target="_blank"><i>Rotation and orientation in Unity</i></a> - Unity Docs. Short 'n sweet
-- <a href="https://en.wikipedia.org/wiki/Quaternion" target="_blank"><i>Quaternion</i></a> - Wikipedia
+- [*How Quaternions Produce 3D Rotations*](https://penguinmaths.blogspot.com/2019/06/how-quaternions-produce-3d-rotation.html) - PenguinMaths
+- [*Rotation and orientation in Unity*](https://docs.unity3d.com/Manual/QuaternionAndEulerRotationsInUnity.html) - Unity Docs. Short 'n sweet
+- [*Quaternion*](https://en.wikipedia.org/wiki/Quaternion) - Wikipedia
 
 ### Further Reading
 
-- <a href="https://marctenbosch.com/quaternions/" target="_blank"><i>Let's remove Quaternions from every 3D Engine</i></a> - Marc ten Bosch. Interesting read. Suggests Rotors
-- <a href="https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles" target="_blank"><i>Conversion between quaternions and Euler angles</i></a> - Wikipedia. Did not cover this. Heavy math
+- [*Let's remove Quaternions from every 3D Engine*](https://marctenbosch.com/quaternions/) - Marc ten Bosch. Interesting read. Suggests Rotors
+- [*Conversion between quaternions and Euler angles*](https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles) - Wikipedia. Did not cover this. Heavy math

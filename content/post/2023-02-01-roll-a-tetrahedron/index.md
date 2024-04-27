@@ -143,11 +143,11 @@ I'm choosing this simpler option.
 *Side note: if you ever want to add a Rigidbody, Unity complains that the mesh isn't "convex".*
 *And if you tick the Convex checkbox on the Mesh Collider, the raycasts won't detect the back faces for some reason.*
 
-
-**Pop Quiz**
-<br>When you get a RaycastHit result from *inside* of a tetrahedron (i.e. hitting the backface) and read the `hit.normal`, which direction does the normal vector point: **inward** or **outward**?
-**Answer**: It’s **outward** still. The normal for the face hasn't changed.
-
+<details><summary>
+<b>Pop Quiz</b>
+<br>When you get a RaycastHit result from <i>inside</i> of a tetrahedron (i.e. hitting the backface) and read the <code>hit.normal</code>, which direction does the normal vector point: <b>inward</b> or <b>outward</b>?</summary>
+<b>Answer</b>: It’s <b>outward</b> still. The normal for the face hasn't changed.
+</details><br>
 
 If you're unfamiliar with [Quaternions](https://docs.unity3d.com/ScriptReference/Quaternion.html), check out my other post explaining them!
 For now just know they represent rotations and/or orientations.
@@ -228,18 +228,20 @@ It looks promising! However... there's one small detail that I don't like...
 
 ***It doesn't stay anchored.***
 
-Why doesn't it stay anchored?
+<details><summary>
+Why doesn't it stay anchored?</summary>
 We need the path of the jump to be circular, since it just goes along a 109.47..° arc of a circle.
-And the shape of the path for DOJump is likely to be parabolic (or something that *isn't* circular).
+And the shape of the path for DOJump is likely to be parabolic (or something that <i>isn't</i> circular).
 We don't have control over the underlying code behind DOJump to adjust its path, and it cannot be fixed by just using a different Ease either.<br>
 So we can't use DOJump.
+</details>
 
-
-What's my proposed solution?
+<details><summary>
+What's my proposed solution?</summary>
 We could use some combination of DOMove, DOLocalMoveY, or some other DOTween method to create the right path, but I have a better idea in mind.
-Looking at our options for interpolating, one of them stands out in particular to work with circular (spherical) rotations: Slerp.<br>
+Looking at our options for interpolating, one of them stands out in particular to work with circular (spherical) rotations: <b>Slerp</b>.<br>
 Time to write our own coroutine.
-
+</details>
 
 ### Coroutine with Slerp
 
@@ -261,7 +263,7 @@ With that in mind, we need to mainly work with **offsets**, which we then add on
 ![Slerp Diagram](slerpDiagram.png)
 
 In this diagram, the Slerp operation would move a vector along a circular path, depicted by the gray arrow.
-To achieve moving along the yellow curved path, this is the relevant parts of the movement code:
+To achieve moving the parent (`transform.position`) along the yellow curved path, this is the relevant parts of the movement code:
 
 ```csharp
 /* Declared at the top */
