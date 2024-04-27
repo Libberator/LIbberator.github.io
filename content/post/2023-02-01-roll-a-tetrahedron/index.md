@@ -46,5 +46,25 @@ All 4 vertices are `1` unit away from each other and `sqrt(3/8)` units away from
 If you want to try deriving it for yourself, I also recommend a linear algebra approach by setting up a few system of equations to solve for the unknowns.
 Alternatively, you can check out the [Tetrahedron Wikipedia page](https://en.wikipedia.org/wiki/Tetrahedron#Coordinates_for_a_regular_tetrahedron) for examples, and apply your desired scaling and offset.
 
+With these 4 vertices, we can now create our mesh. How you choose to do this is up to you:
+- **3D Modeling Software** (i.e. Blender) - Benefits are: easier customizations like smoothing edges, UV/Texture maps, etc.
+- **ProBuilder in Unity** - New Shape > Cone > Radius = 0.5773503, Height = 0.8164966, Sides = 3.
+*Note: This didn't feel as accurate and will require modified code to work with later because it’s not a regular `Mesh` but a `ProBuilderMesh`.*
+- **Generate Mesh via code** - [I've created a script](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmeshcreator-cs) to generate it for you in one click. 
+I purposefully offset the mesh vertices down so that the center is at the origin. This makes it easier for rotating.
+
+Once you have the mesh generated, it's time to set up the GameObject structure.
+It's generally a good practice to keep the visuals separate from the logic.
+We'll classify the rotation as part of the visuals, but the movement still needs to be applied to the root object.
+Set it up with the mesh as a child object, then gave the child's local position the appropriate y-offset.
+
+## RotateAround Approach
+
+[Transform.RotateAround](https://docs.unity3d.com/ScriptReference/Transform.RotateAround.html) requires 3 pieces of information:
+- A `Vector3` **axis** to rotate around
+- A `Vector3` **point**, a world-space anchor, for which the axis passes through
+- A `float` **angle** of rotation in degrees
+
+
 
 **Happy rolling!**
