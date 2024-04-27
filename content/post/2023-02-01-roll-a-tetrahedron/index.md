@@ -95,5 +95,22 @@ Finally, we'll need the **angle** of rotation. For a cube, it's an easy 90°. Bu
 Spoiler alert: it's `109.4712206..°`, or `acos(-1/3)`. According to the [wiki page](https://en.wikipedia.org/wiki/Tetrahedron#Angles_and_distances), this is the same as the "Vertex-Center-Vertex" angle.
 However, I initially solved it for the angle between two faces, also known as the "dihedral angle", then subtracted that from 180°.
 
+### RotateAround Results
+
+![RotateAround Results](rotateAround.gif)
+
+So this will work. If performance is a concern, replace Linq with something that doesn't generate garbage.
+If you're happy with those results, you can stop reading here, [grab the complete script](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmoverrotatearound-cs), and enjoy the rest of your day. :confetti_ball:
+
+But it *does* have some limitations to be aware of:
+1. Over a long distance, after many rolls, some error will accumulate and the orientation won't be perfectly flush.
+This is because the angle of rotation is an irrational number, and there will be floating point errors.
+2. It's not very easy to apply an easing function to alter the **feel** of the roll with RotateAround.
+
+With those limitations in mind, what are some other potential ways to rotate a tetrahedron?
+- Rigidbody & AddTorque - physics isn't always reliable; we want more control over how it moves. :x:
+- Hard-code all 6 possible orientations and their transitions - too inflexible, feels hacky, lots of work. :x:
+- Get target rotations procedurally with raycasts and use quaternions - seems promising, **let's try it**! :heavy_check_mark:
+
 
 **Happy rolling!**
