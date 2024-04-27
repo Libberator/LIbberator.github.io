@@ -27,5 +27,24 @@ The requirements I set for myself were the following:
 - Pointy end forward (though this can easily also point right, not a hard-set constraint).
 - Precision is important so I can't rely on downloading someone else's model.
 
+\**Note: This was just for easier math; we will offset it later so the center is at the origin.*
+
+With this setup, I did the math (I will leave the fun of trigonometric computations to the reader) and came out with the following 4 vertices:
+```
+Back-left: (-0.5, 0, -0.288675)  // z = -sqrt(3)/6
+Back-right: (0.5, 0, -0.288675)
+Forward:    (0, 0, 0.577350)     // z = 1/sqrt(3)
+Top:        (0, 0.816497, 0)     // y = sqrt(2/3)
+```
+
+All 4 vertices are `1` unit away from each other and `sqrt(3/8)` units away from the center:
+
+```
+ Center is at: (0, 0.2041241, 0) // y = sqrt(6)/12
+```
+
+If you want to try deriving it for yourself, I also recommend a linear algebra approach by setting up a few system of equations to solve for the unknowns.
+Alternatively, you can check out the [Tetrahedron Wikipedia page](https://en.wikipedia.org/wiki/Tetrahedron#Coordinates_for_a_regular_tetrahedron) for examples, and apply your desired scaling and offset.
+
 
 **Happy rolling!**
