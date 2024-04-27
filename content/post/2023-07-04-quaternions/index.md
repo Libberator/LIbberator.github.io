@@ -109,7 +109,7 @@ public class GimbalLockExample : MonoBehaviour
 ```
 Press 'S' to pitch upwards for about 90° ("inverted controls" are just for this demo; I'm not a monster) so that the local forward vector aligns with the global Y-axis - this is when the red and blue rings align in the gif. Then you'll see that any adjustment to Yaw (A/D) or Roll (Q/E) will be indistinguishable from one another; they both behave like Roll. That's a loss of a degree of freedom (a.k.a. "gimbal lock").
 
-![Gimbal Lock](gimbal-lock.webm)
+{{<video src="gimbal-lock.webm" autoplay="true" loop="true">}}
 
 &ensp;<b>#3. Interpolation sucks</b>
 
@@ -165,7 +165,7 @@ When multiplying quaternions together, the best way to think about it is from **
 
 ### A "Complete" Rotation is 720°, Not Just 360°
 
-![Quaternion Spin](quaternion-spin.webm)
+{{<video src="quaternion-spin.webm" autoplay="true" loop="true">}}
 
 By "complete", I'm referring to an orientation returning to its starting *state*. If you track one face of the cube in the gif, you'll see how this works where there are two different "states" when the face is oriented the same way.
 
