@@ -1,6 +1,6 @@
 ---
 title: Naming Conventions
-description: Despite what the title implies, this is actually about *styling* conventions. What? Naming things are hard!
+description: "Despite what the title implies, this is actually about *styling* conventions. What? Naming things are hard!"
 date: 2023-01-06 12:00:00 -0700
 categories: [Blogging]
 tags: [programming,opinion,C#]     # TAG names should always be lowercase
