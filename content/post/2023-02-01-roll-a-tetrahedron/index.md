@@ -2,8 +2,12 @@
 title: Roll A Tetrahedron
 description: A guide appears in front of you. Roll 1d4 for perception.
 date: 2023-02-01 12:00:00 -0700
-categories: [Tutorial]
-tags: [unity,programming,c#]
+categories:
+    - Tutorial
+tags: 
+    - unity
+    - programming
+    - c#
 ---
 
 A member of a Discord server I moderate was curious about how to roll a tetrahedron. And that intrigued me. It's such a unique problem.
@@ -97,7 +101,7 @@ However, I initially solved it for the angle between two faces, also known as th
 
 ### RotateAround Results
 
-![RotateAround Results](rotateAround.gif)
+![RotateAround](rotateAround.gif)
 
 So this will work. If performance is a concern, replace Linq with something that doesn't generate garbage.
 If you're happy with those results, you can stop reading here, [grab the complete script](https://gist.github.com/Libberator/26c9176e4e51d7a52481ab90175d265d#file-tetrahedronmoverrotatearound-cs), and enjoy the rest of your day. :confetti_ball:
