@@ -8,7 +8,7 @@ tags:
     - math
     - c#
     - unity]
-# image: /quaternion-spin.gif
+image: https://hugelolcdn.com/hugewoah.com/i/7950.gif
 math: true
 ---
 
@@ -109,7 +109,7 @@ public class GimbalLockExample : MonoBehaviour
 ```
 Press 'S' to pitch upwards for about 90° ("inverted controls" are just for this demo; I'm not a monster) so that the local forward vector aligns with the global Y-axis - this is when the red and blue rings align in the gif. Then you'll see that any adjustment to Yaw (A/D) or Roll (Q/E) will be indistinguishable from one another; they both behave like Roll. That's a loss of a degree of freedom (a.k.a. "gimbal lock").
 
-// TODO: fix .gif uploads
+![Gimbal Lock](gimbal-lock.gif)
 
 &ensp;<b>#3. Interpolation sucks</b>
 
