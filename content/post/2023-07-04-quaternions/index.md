@@ -165,7 +165,7 @@ When multiplying quaternions together, the best way to think about it is from **
 
 ### A "Complete" Rotation is 720°, Not Just 360°
 
-// TODO: fix .gif uploads
+![Quaternion Spin](quaternion-spin.gif)
 
 By "complete", I'm referring to an orientation returning to its starting <i>state</i>. If you track one face of the cube in the gif, you'll see how this works where there are two different "states" when the face is oriented the same way.
 
