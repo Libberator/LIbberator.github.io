@@ -1,8 +1,9 @@
 # Pages placed under these sections will be shown on homepage and archive page.
 mainSections = ["post"]
-# Output page's full content in RSS.
-rssFullContent = true
 favicon = "/favicon.png"
+
+# Output page's full content in RSS.
+rssFullContent = false
 
 [footer]
 since = 2023

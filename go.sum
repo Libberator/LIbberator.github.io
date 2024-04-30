@@ -1,2 +1,6 @@
 github.com/CaiJimmy/hugo-theme-stack/v3 v3.25.0 h1:pI9uan8QVhmjtJZBQcgRDBU/5J29yquL315hvlWwfEc=
 github.com/CaiJimmy/hugo-theme-stack/v3 v3.25.0/go.mod h1:IPmCXiIxlFSLFYS0tOmYP6ySLviyeNVSabyvSuaxD+I=
+github.com/hugomods/icons v0.6.3 h1:2Ra6NU2GOeVvz8vowLq/OZCTzxqhq84MA0TICRBVxeY=
+github.com/hugomods/icons v0.6.3/go.mod h1:cIkSvK6W0q6N4U6n9KGz+QfRWQXAW0INd+1P31gPNGg=
+github.com/hugomods/icons/vendors/lucide v0.3.37 h1:K/svauaOcWHi4A+qX5x3K2LKsTi0VsURMxXmVR9MbDo=
+github.com/hugomods/icons/vendors/lucide v0.3.37/go.mod h1:+r9BihaTxCsHJ5QmvNBtmvjA34sO19SNjVelTPSEhI8=
